@@ -43,9 +43,8 @@ trap "rm -rf ${dir}" EXIT
 curl --fail --silent "https://repo1.maven.org/maven2/${path}/${version}/${artifact}-${version}.jar" > "${dir}/${artifact}.jar"
 cd "${dir}"
 mkdir "${artifact}"
-mkdir target
 unzip -q -d "${artifact}" "${artifact}.jar"
 java -jar "${jar}" --sources "${artifact}" --target ./target
-php "${home}/parse-index.php" /target/index.xml $2 >> "${output}"
+php "${home}/parse-index.php" target/index.xml $2 >> "${output}"
 cd
 rm -rf ${dir}
