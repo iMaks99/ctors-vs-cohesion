@@ -45,6 +45,7 @@ cd "${dir}"
 mkdir "${artifact}"
 unzip -q -d "${artifact}" "${artifact}.jar"
 java -jar "${jar}" --sources "${artifact}" --target ./target
+echo "${home}"
 php parse-index.php target/index.xml $2 >> "${output}"
 cd
 rm -rf ${dir}
