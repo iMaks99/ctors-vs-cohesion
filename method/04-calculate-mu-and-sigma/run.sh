@@ -22,21 +22,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-home=$(pwd)
-jar="${home}/../../../target/jpeek-jar-with-dependencies.jar"
-if [ ! -e "${jar}" ]; then
-  echo "${jar} doesn't exist, please run 'mvn clean install' first"
-  exit -1
-fi
+set -e
 
-rm -f "${home}/metrics-1.txt"
-rm -f "${home}/metrics-2.txt"
+filename='../04-calculate-mu-and-sigma/filtered.csv'
 
 while read line
 do
-  IFS=',' read -ra parts <<< "${line}"
-  echo "${parts[0]}..."
-  "${home}/get-sigma-and-mu.sh" "${jar}" "${parts[0]}" "${home}/metrics-1.txt"
-  echo "${parts[0]} (with ctors)..."
-  "${home}/get-sigma-and-mu.sh" "${jar}" "${parts[0]}" "${home}/metrics-2.txt" "--include-ctors"
-done < "${home}/../03-filter-out-artifacts/target-926.csv"
+  IFS=' ' read -ra parts <<< "${line}"
+  echo "${parts[0]}"
+  echo "${parts[0]}..." $(./get-sigma-and-mu.sh "${parts[0]}")
+done < $filename

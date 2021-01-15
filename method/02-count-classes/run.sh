@@ -24,12 +24,19 @@
 
 set -e
 
-while read line
-do
+#filename='../01-find-all-artifacts/demo-list.txt'
+filename='../01-find-all-artifacts/full-list.txt'
+
+countclass () {
   IFS=' ' read -ra parts <<< "${line}"
   if [ "${parts[1]}" == "" ]; then
-    echo "${parts[0]}" $(./classes-in-artifact.sh "${parts[0]}")
+    echo "${parts[0]}"
+    echo "${parts[0]}" $(./classes-in-artifact.sh "${parts[0]}") >> all-with-counts.csv
   else
     echo "${line}"
   fi
-done < "${1:-/dev/stdin}"
+}
+
+for line in $(cat $filename)
+  do countclass
+done
