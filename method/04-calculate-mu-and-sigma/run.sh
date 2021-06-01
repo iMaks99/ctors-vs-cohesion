@@ -24,7 +24,7 @@
 
 set -e
 
-filename='../04-calculate-mu-and-sigma/filtered_2.csv'
+filename='filtered_2.csv'
 
 while read line
 do

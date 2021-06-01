@@ -28,7 +28,7 @@
 
 set -e
 
-jar='../../../../jpeek.jar'
+jar='../../jpeek-jar-with-dependencies.jar'
 path=${1//.//}
 echo "${path}"
 meta=$(curl --fail --silent "https://repo1.maven.org/maven2/${path}/maven-metadata.xml")
@@ -41,5 +41,5 @@ curl --fail --silent "https://repo1.maven.org/maven2/${path}/${version}/${artifa
 cd "${dir}"
 mkdir "${artifact}"
 unzip -q -d "${artifact}" "${artifact}.jar"
-java -jar "${jar}" --sources "${artifact}" --target "${dir}/target/"
+java -jar "${jar}" --sources "${artifact}" --target "${dir}/target/" --overwrite --metrics "CCM,LCC"
 cd
